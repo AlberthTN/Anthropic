@@ -1,5 +1,5 @@
 # Usar imagen base de Python 3.11 slim para producción
-FROM python:3.11-slim
+FROM python:3.14-slim
 
 # Establecer variables de entorno para producción
 ENV PYTHONUNBUFFERED=1 \
