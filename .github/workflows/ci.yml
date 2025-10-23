@@ -102,7 +102,7 @@ jobs:
 
     - name: 📊 Upload Coverage to Codecov
       if: matrix.python-version == '3.9' && matrix.os == 'ubuntu-latest'
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v5
       with:
         file: ./coverage.xml
         flags: unittests
