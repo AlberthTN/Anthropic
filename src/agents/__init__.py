@@ -1,0 +1,1 @@
+# Agente principal vacío para inicializar el paquete

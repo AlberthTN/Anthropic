@@ -1,0 +1,120 @@
+services: 
+  claude-programming-agent: 
+    image: alberth121484/anthropic-py:01.000.02
+    container_name: claude-programming-agent
+    restart: unless-stopped
+    stop_grace_period: 30s
+    expose: 
+      - "8080"
+    ports: 
+      - "1404:8080"
+    networks: 
+      - tiendasneto
+    environment:
+      # Anthropic Claude Configuration
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-4-sonnet}
+      - CLAUDE_MAX_TOKENS=${CLAUDE_MAX_TOKENS:-4000}
+      - CLAUDE_TEMPERATURE=${CLAUDE_TEMPERATURE:-0.2}
+      
+      # Slack Configuration
+      - SLACK_BOT_TOKEN=${SLACK_BOT_TOKEN}
+      - SLACK_APP_TOKEN=${SLACK_APP_TOKEN}
+      - SLACK_SIGNING_SECRET=${SLACK_SIGNING_SECRET}
+      - SLACK_SOCKET_MODE=${SLACK_SOCKET_MODE:-true}
+      
+      # BigQuery Configuration for Persistent Memory
+      - GOOGLE_APPLICATION_CREDENTIALS_JSON=${GOOGLE_APPLICATION_CREDENTIALS_JSON}
+      - BIGQUERY_PROJECT_ID=${BIGQUERY_PROJECT_ID}
+      - BIGQUERY_DATASET=${BIGQUERY_DATASET}
+      - BIGQUERY_LOCATION=${BIGQUERY_LOCATION:-us-central1}
+      - BIGQUERY_MAX_BYTES_BILLED=${BIGQUERY_MAX_BYTES_BILLED:-30000000000}
+      
+      # Google ADK Configuration (Deprecated - removed)
+      # - GOOGLE_ADK_PROJECT_ID=${GOOGLE_ADK_PROJECT_ID}
+      # - GOOGLE_ADK_LOCATION=${GOOGLE_ADK_LOCATION:-us-central1}
+      # - GOOGLE_ADK_SERVICE_ACCOUNT=${GOOGLE_ADK_SERVICE_ACCOUNT}
+      
+      # Application Configuration
+      - APP_NAME=${APP_NAME:-ClaudeProgrammingAgent}
+      - APP_VERSION=${APP_VERSION:-1.0.0}
+      - DEBUG=${DEBUG:-false}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - MAX_WORKERS=${MAX_WORKERS:-4}
+      - TIMEOUT_SECONDS=${TIMEOUT_SECONDS:-30}
+      - PORT=8080
+      - TZ=America/Mexico_City
+      - ENVIRONMENT=production
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
+      
+      # Optional Database Configuration
+      - DATABASE_TYPE=${DATABASE_TYPE}
+      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      
+      # Optional Security Configuration
+      - SECRET_KEY=${SECRET_KEY}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      - RATE_LIMIT_PER_MINUTE=${RATE_LIMIT_PER_MINUTE}
+      - MAX_REQUEST_SIZE_MB=${MAX_REQUEST_SIZE_MB}
+      
+      # Optional Monitoring Configuration
+      - ENABLE_METRICS=${ENABLE_METRICS:-false}
+      - METRICS_PORT=${METRICS_PORT:-8081}
+      - HEALTH_CHECK_PORT=${HEALTH_CHECK_PORT:-8082}
+      - PROMETHEUS_ENABLED=${PROMETHEUS_ENABLED:-false}
+      - GRAFANA_ENABLED=${GRAFANA_ENABLED:-false}
+    
+    deploy: 
+      mode: replicated 
+      replicas: 1 
+      placement: 
+        constraints: 
+          - node.role == manager 
+      resources: 
+        limits: 
+          cpus: "2" 
+          memory: 1G 
+        reservations:
+          cpus: "1"
+          memory: 512M
+    
+    labels: 
+      - traefik.enable=true 
+      - traefik.http.routers.claude-agent.rule=Host(`agantrhopic.tiendasnetows.com`) 
+      - traefik.http.routers.claude-agent.entrypoints=websecure 
+      - traefik.http.routers.claude-agent.priority=1 
+      - traefik.http.routers.claude-agent.tls.certresolver=letsencryptresolver 
+      - traefik.http.routers.claude-agent.service=claude-agent 
+      - traefik.http.services.claude-agent.loadbalancer.server.port=8080 
+      - traefik.http.services.claude-agent.loadbalancer.passHostHeader=1 
+    
+    healthcheck: 
+      test: ["CMD-SHELL", "python -c 'import sys; sys.exit(0)' || exit 1"] 
+      interval: 30s 
+      timeout: 10s 
+      retries: 3 
+      start_period: 60s 
+    
+    volumes:
+      - claude-agent-logs:/app/logs
+      - claude-agent-results:/app/evals/results
+      - claude-agent-config:/app/config
+
+networks: 
+  tiendasneto: 
+    external: true 
+    name: tiendasneto
+
+volumes:
+  claude-agent-logs:
+    driver: local
+  claude-agent-results:
+    driver: local
+  claude-agent-config:
+    driver: local

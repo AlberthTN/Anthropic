@@ -1,0 +1,209 @@
+name: ✨ Feature Request
+description: Sugerir una nueva funcionalidad para el Claude Programming Agent
+title: "[FEATURE] "
+labels: ["enhancement", "needs-review"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ¡Gracias por sugerir una nueva funcionalidad! Tu feedback nos ayuda a mejorar el Claude Programming Agent.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: 📝 Resumen de la Funcionalidad
+      description: Una descripción breve y clara de la funcionalidad que te gustaría ver
+      placeholder: Ejemplo: "Agregar comando para generar documentación automática de APIs"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 🎯 Problema que Resuelve
+      description: ¿Qué problema específico resolvería esta funcionalidad?
+      placeholder: |
+        Ejemplo: "Actualmente es tedioso documentar APIs manualmente. Los desarrolladores pierden tiempo 
+        escribiendo documentación que podría generarse automáticamente desde el código."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 💡 Solución Propuesta
+      description: Describe detalladamente cómo te imaginas que funcionaría esta funcionalidad
+      placeholder: |
+        Ejemplo:
+        - Nuevo comando `/document-api` en Slack
+        - Analizar código Python/JavaScript para extraer endpoints
+        - Generar documentación en formato OpenAPI/Swagger
+        - Guardar resultado en BigQuery para historial
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: 🧩 Componente Afectado
+      description: ¿Qué parte del sistema se vería afectada?
+      options:
+        - Claude Agent (nuevas capacidades de IA)
+        - Slack Commands (nuevos comandos)
+        - BigQuery Integration (nuevos datos/queries)
+        - API Endpoints (nuevas rutas)
+        - Configuration (nuevas opciones)
+        - Monitoring/Logging (nuevas métricas)
+        - Docker/Deployment (mejoras de infraestructura)
+        - Documentation (mejoras de docs)
+        - Multiple Components (varios componentes)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 🚨 Prioridad Sugerida
+      description: ¿Qué tan importante consideras esta funcionalidad?
+      options:
+        - Critical (funcionalidad esencial faltante)
+        - High (mejoraría significativamente la experiencia)
+        - Medium (sería una buena adición)
+        - Low (nice-to-have)
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: 🎬 Casos de Uso
+      description: Describe escenarios específicos donde esta funcionalidad sería útil
+      placeholder: |
+        Caso de Uso 1: Desarrollador trabajando en API REST
+        - Escribe endpoints en FastAPI
+        - Ejecuta `/document-api` en Slack
+        - Obtiene documentación Swagger automática
+        
+        Caso de Uso 2: Team Lead revisando APIs
+        - Necesita documentación actualizada para review
+        - Usa comando para generar docs desde código actual
+        - Comparte documentación con el equipo
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 🔄 Alternativas Consideradas
+      description: ¿Has considerado otras formas de resolver este problema?
+      placeholder: |
+        Ejemplo:
+        - Usar herramientas externas como Swagger Codegen
+        - Documentar manualmente (actual)
+        - Integrar con herramientas existentes como Postman
+        
+        ¿Por qué prefieres que esté integrado en el Claude Agent?
+
+  - type: textarea
+    id: implementation
+    attributes:
+      label: 🛠️ Sugerencias de Implementación
+      description: Si tienes ideas técnicas sobre cómo implementar esto, compártelas
+      placeholder: |
+        Ejemplo:
+        - Usar AST parsing para extraer información de código
+        - Integrar con librerías como pydantic para schemas
+        - Agregar nuevo handler en slack/handlers.py
+        - Crear nueva herramienta en tools/documentation_generator.py
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: 📋 Ejemplos de Entrada/Salida
+      description: Proporciona ejemplos concretos de cómo funcionaría
+      placeholder: |
+        Entrada:
+        ```python
+        @app.post("/users/")
+        async def create_user(user: UserCreate) -> User:
+            """Create a new user"""
+            return user_service.create(user)
+        ```
+        
+        Comando Slack: `/document-api`
+        
+        Salida:
+        ```yaml
+        openapi: 3.0.0
+        paths:
+          /users/:
+            post:
+              summary: Create a new user
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UserCreate'
+        ```
+      render: markdown
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: 📦 Dependencias Nuevas
+      description: ¿Esta funcionalidad requeriría nuevas librerías o servicios?
+      placeholder: |
+        Ejemplo:
+        - pydantic-to-openapi (para generar schemas)
+        - ast (built-in Python, para parsing)
+        - jinja2 (para templates de documentación)
+
+  - type: checkboxes
+    id: complexity
+    attributes:
+      label: 🎯 Complejidad Estimada
+      description: ¿Qué tan compleja crees que sería esta implementación?
+      options:
+        - label: Simple (pocas horas de desarrollo)
+        - label: Moderada (1-2 días de desarrollo)
+        - label: Compleja (varios días de desarrollo)
+        - label: Muy compleja (semanas de desarrollo)
+
+  - type: checkboxes
+    id: breaking
+    attributes:
+      label: ⚠️ Cambios Importantes
+      description: ¿Esta funcionalidad podría afectar funcionalidad existente?
+      options:
+        - label: No afectaría funcionalidad existente
+        - label: Podría requerir cambios en configuración
+        - label: Podría requerir cambios en comandos existentes
+        - label: Podría requerir migración de datos
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 📎 Información Adicional
+      description: Cualquier otra información relevante
+      placeholder: |
+        - Referencias a herramientas similares
+        - Links a documentación relevante
+        - Mockups o diagramas (si aplica)
+        - Feedback de otros usuarios
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: ✅ Checklist
+      description: Por favor confirma que has verificado lo siguiente
+      options:
+        - label: He buscado en issues existentes para ver si esta funcionalidad ya fue solicitada
+          required: true
+        - label: He proporcionado suficiente detalle para entender la propuesta
+          required: true
+        - label: He considerado el impacto en la arquitectura existente
+          required: true
+        - label: Esta funcionalidad está alineada con los objetivos del proyecto
+          required: true

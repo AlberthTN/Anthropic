@@ -1,0 +1,155 @@
+name: 🐛 Bug Report
+description: Reportar un bug o problema en el Claude Programming Agent
+title: "[BUG] "
+labels: ["bug", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por reportar este bug. Por favor proporciona toda la información solicitada para ayudarnos a resolver el problema rápidamente.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 Descripción del Bug
+      description: Una descripción clara y concisa del problema
+      placeholder: Describe qué está pasando exactamente...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 🔄 Pasos para Reproducir
+      description: Pasos detallados para reproducir el comportamiento
+      placeholder: |
+        1. Configurar el agente con '...'
+        2. Ejecutar comando '...'
+        3. Enviar mensaje en Slack '...'
+        4. Ver error
+      value: |
+        1. 
+        2. 
+        3. 
+        4. 
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: ✅ Comportamiento Esperado
+      description: Una descripción clara de qué esperabas que pasara
+      placeholder: Describe el comportamiento esperado...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: ❌ Comportamiento Actual
+      description: Una descripción clara de qué está pasando realmente
+      placeholder: Describe qué está pasando en su lugar...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 📋 Logs y Mensajes de Error
+      description: Si aplica, agrega logs, mensajes de error o capturas de pantalla
+      placeholder: |
+        Pega aquí los logs relevantes o mensajes de error.
+        Puedes usar ```texto``` para formatear código.
+      render: shell
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: 🧩 Componente Afectado
+      description: ¿Qué parte del sistema está afectada?
+      options:
+        - Claude Agent (generación/análisis de código)
+        - Slack Integration (comandos/webhooks)
+        - BigQuery (persistencia de datos)
+        - Docker/Deployment
+        - Configuration/Environment
+        - Monitoring/Logging
+        - API/Endpoints
+        - No estoy seguro
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: 🚨 Severidad
+      description: ¿Qué tan severo es este bug?
+      options:
+        - Critical (el sistema no funciona)
+        - High (funcionalidad principal afectada)
+        - Medium (funcionalidad secundaria afectada)
+        - Low (problema menor o cosmético)
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 🖥️ Información del Sistema
+      description: Información sobre tu entorno de ejecución
+      placeholder: |
+        - OS: [e.g. Windows 10, macOS 12.1, Ubuntu 20.04]
+        - Python Version: [e.g. 3.9.1]
+        - Agent Version: [e.g. 1.0.0]
+        - Docker Version: [e.g. 20.10.12]
+        - Deployment: [e.g. Local, Docker, Cloud]
+      value: |
+        - OS: 
+        - Python Version: 
+        - Agent Version: 
+        - Docker Version: 
+        - Deployment: 
+    validations:
+      required: true
+
+  - type: textarea
+    id: config
+    attributes:
+      label: ⚙️ Configuración Relevante
+      description: Configuración relevante (sin incluir API keys o información sensible)
+      placeholder: |
+        Ejemplo:
+        - CLAUDE_MODEL: claude-3-sonnet-20240229
+        - SLACK_BOT_TOKEN: xoxb-... (oculto)
+        - WEBHOOK_PORT: 8080
+        - DEBUG_MODE: true
+      render: yaml
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 📎 Información Adicional
+      description: Cualquier otra información que pueda ser útil
+      placeholder: |
+        - ¿Has intentado alguna solución?
+        - ¿El problema ocurre consistentemente?
+        - ¿Hay algún patrón específico?
+        - ¿Funciona en otros entornos?
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: ✅ Checklist
+      description: Por favor confirma que has verificado lo siguiente
+      options:
+        - label: He buscado en issues existentes para ver si este bug ya fue reportado
+          required: true
+        - label: He verificado que estoy usando la versión más reciente
+          required: true
+        - label: He incluido toda la información solicitada
+          required: true
+        - label: He removido cualquier información sensible (API keys, tokens, etc.)
+          required: true

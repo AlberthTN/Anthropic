@@ -1,0 +1,146 @@
+# Ignorar archivos de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Entornos virtuales
+venv/
+env/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
+
+# Archivos de entorno
+.env
+.env.local
+.env.*.local
+
+# Archivos de evaluación y resultados
+evals/results/*.json
+!evals/results/.gitkeep
+
+# Archivos de configuración de Slack
+slack_app_manifest.yaml
+
+# Archivos de dependencias
+Pipfile.lock
+poetry.lock
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de caché
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Archivos de base de datos (si se usa SQLite)
+*.db
+*.sqlite
+*.sqlite3
+
+# Archivos temporales
+tmp/
+temp/
+*.tmp
+*.temp
+
+# ===== CLAUDE AGENT SPECIFIC =====
+
+# Google Cloud credentials
+*.json
+!.env.example
+google-cloud-key.json
+service-account-key.json
+gcp-credentials.json
+claude-agent-key.json
+
+# Anthropic credentials
+anthropic-key.txt
+
+# Slack credentials
+slack-credentials.json
+
+# BigQuery data
+bigquery-data/
+*.bq
+
+# Security files
+*.pem
+*.key
+*.crt
+*.cert
+
+# Backup files
+*.bak
+*.backup
+backup/
+backups/
+
+# Monitoring data
+prometheus/data/
+grafana/data/
+monitoring/data/
+
+# Test results
+test-results/
+test-reports/
+.tox/
+.nox/
+
+# Docker overrides
+docker-compose.override.yml
+docker-compose.local.yml
+
+# Development overrides
+local_config.py
+dev_settings.py
+debug_config.py
+
+# Large files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Data files
+data/
+datasets/
+models/
+*.pkl
+*.model
+*.h5
+
+# Output directories
+output/
+results/
+reports/

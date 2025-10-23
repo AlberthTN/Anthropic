@@ -1,0 +1,93 @@
+version: 2
+
+updates:
+  # 🐍 Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "tu-usuario"  # Reemplazar con tu usuario de GitHub
+    assignees:
+      - "tu-usuario"  # Reemplazar con tu usuario de GitHub
+    labels:
+      - "dependencies"
+      - "python"
+      - "automated"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+      include: "scope"
+    # Agrupar actualizaciones menores y patches
+    groups:
+      anthropic:
+        patterns:
+          - "anthropic*"
+      slack:
+        patterns:
+          - "slack*"
+      google-cloud:
+        patterns:
+          - "google-cloud*"
+          - "google-auth*"
+      testing:
+        patterns:
+          - "pytest*"
+          - "coverage*"
+          - "mock*"
+      linting:
+        patterns:
+          - "flake8*"
+          - "black*"
+          - "isort*"
+          - "mypy*"
+      security:
+        patterns:
+          - "bandit*"
+          - "safety*"
+
+  # 🐳 Docker dependencies
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "tu-usuario"
+    assignees:
+      - "tu-usuario"
+    labels:
+      - "dependencies"
+      - "docker"
+      - "automated"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+
+  # 🔧 GitHub Actions dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "tu-usuario"
+    assignees:
+      - "tu-usuario"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "automated"
+    commit-message:
+      prefix: "ci"
+      include: "scope"

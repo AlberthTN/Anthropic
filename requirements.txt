@@ -1,0 +1,23 @@
+anthropic==0.40.0
+slack-bolt==1.21.2
+slack-sdk==3.33.3
+python-dotenv==1.0.1
+psutil==6.1.0
+flask==3.1.0
+pydantic
+requests==2.31.0
+google-cloud-bigquery==3.13.0
+google-auth==2.23.4
+
+# Standard library modules used:
+# - ast (built-in)
+# - subprocess (built-in) 
+# - tempfile (built-in)
+# - os (built-in)
+# - json (built-in)
+# - re (built-in)
+# - typing (built-in)
+# - datetime (built-in)
+# - logging (built-in)
+# - pathlib (built-in)
+# - sys (built-in)
